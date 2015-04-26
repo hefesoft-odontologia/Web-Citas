@@ -1,0 +1,29 @@
+<ion-view ion-vi>
+  <ion-content>
+  	
+	<ion-list show-delete="shouldShowDelete"
+	          show-reorder="shouldShowReorder"
+	          can-swipe="listCanSwipe">
+	  <ion-item ng-repeat="item in listado"
+	            class="item-thumbnail-left">
+
+	    <img ng-src="{{item.imagen}}">
+	    <h2>{{item.email}}</h2>
+	    <p>{{item.nombres}}</p>
+	    <p>{{item.telefono}}</p>
+	    <p>{{item.movil}}</p>
+	    <ion-option-button class="button-positive"
+	                       ng-click="irFechas(item)">
+	      Solicitar cita
+	    </ion-option-button>
+	    
+	    <ion-reorder-button class="ion-navicon"
+	                        on-reorder="reorderItem(item, $fromIndex, $toIndex)">
+	    </ion-reorder-button>
+
+	  </ion-item>
+	</ion-list>
+
+
+  </ion-content>
+</ion-view>

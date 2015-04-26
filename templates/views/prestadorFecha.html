@@ -1,0 +1,46 @@
+<ion-view>
+      <ion-content>
+
+		 <label class="item item-input item-select">
+		    <div class="input-label">
+		      Mes
+		    </div>
+		     <select ng-options="mes.mes for mes in meses" ng-model="meses.seleccionado">
+      		 </select>
+		  </label>
+		</div>
+
+		 <label class="item item-input item-select">
+		    <div class="input-label">
+		      Dia
+		    </div>
+			<select ng-options="dia.dia for dia in dias" ng-model="dias.seleccionado">
+      		</select>
+		  </label>
+		</div>
+
+		 <label class="item item-input item-select">
+		    <div class="input-label">
+		      Horas
+		    </div>
+			<select ng-options="hora.hora for hora in horas" ng-model="horas.seleccionado">
+      		</select>
+		  </label>
+		</div>
+
+		<label class="item item-input item-select">
+		    <div class="input-label">
+		      Minuto
+		    </div>
+			 <select ng-options="periodo.periodo for periodo in periodos" ng-model="periodos.seleccionado">
+      		 </select>	
+		  </label>
+		</div>
+		
+		<div class="row">
+              <button class="button button-block button-balanced" ng-click="solicitarCita()" type="submit">Solicitar cita</button>
+       </div>
+
+      </ion-content>
+</ion-view>
+

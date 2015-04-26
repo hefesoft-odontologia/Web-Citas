@@ -1,0 +1,26 @@
+{
+  "name": "hefesoft.azure",
+  "authors": [
+    "Jose Douglas Ramirez E <chibchombiano26@hotmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "homepage": "https://github.com/chibchombiano26/hefesoft.azure",
+  "_release": "b18ac7a77f",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "b18ac7a77fcbaa755bd0ba1d1a58ceaaa0b5c737"
+  },
+  "_source": "https://github.com/chibchombiano26/hefesoft.azure.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/chibchombiano26/hefesoft.azure.git",
+  "_direct": true
+}

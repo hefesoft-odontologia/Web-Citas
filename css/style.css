@@ -1,0 +1,4 @@
+body.platform-windowsphone .scroll-content,
+body.platform-windowsphone8 .scroll-content {
+    overflow: auto;
+}

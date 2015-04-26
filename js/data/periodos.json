@@ -1,0 +1,25 @@
+[
+  {
+    "tipo": "periodos",
+    "data" : 
+     [
+      {
+        "periodo": "0",
+        "codigo" : 1
+      },
+      {
+        "periodo": "15",
+        "codigo" : 2
+      },  
+      {
+        "periodo": "30",
+        "codigo" : 3
+      },
+      {
+        "periodo": "45",
+        "codigo" : 4
+      }
+    ]
+
+  }
+]

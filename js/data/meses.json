@@ -1,0 +1,59 @@
+[
+  {
+    "tipo": "meses",
+    "data" : 
+    [
+
+        {
+          "mes": "Enero",
+          "codigo" : 1
+        },
+        {
+          "mes": "Febrero",
+          "codigo" : 2
+        },
+        {
+          "mes": "Marzo",
+          "codigo" : 3
+        },
+        {
+          "mes": "Abril",
+          "codigo" : 4
+        },
+        {
+          "mes": "Mayo",
+          "codigo" : 5
+        },
+        {
+          "mes": "Junio",
+          "codigo" : 6
+        },
+        {
+          "mes": "Julio",
+          "codigo" : 7
+        },
+        {
+          "mes": "Agosto",
+          "codigo" : 8
+        },
+        {
+          "mes": "Septiembre",
+          "codigo" : 9
+        },
+        {
+          "mes": "Octubre",
+          "codigo" : 10
+        },
+        {
+          "mes": "Noviembre",
+          "codigo" : 11
+        },
+        {
+          "mes": "Diciembre",
+          "codigo" : 12
+        }  
+
+    ]
+
+  }
+]
