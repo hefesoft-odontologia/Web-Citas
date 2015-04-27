@@ -69,6 +69,23 @@ angular.module('starter')
         console.log(data);
     }
 
+
+    //Primero se valida que se hayan cargado los combos
+    //luego que algo se haya seleccionado
+    $scope.validar = function(){
+        if($scope.hasOwnProperty('meses') && $scope.hasOwnProperty('dias') && $scope.hasOwnProperty('horas') && $scope.hasOwnProperty('periodos') ){
+            if($scope.meses.hasOwnProperty('seleccionado') && $scope.dias.hasOwnProperty('seleccionado') && $scope.horas.hasOwnProperty('seleccionado') && $scope.periodos.hasOwnProperty('seleccionado')){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+        else{
+            return true;
+        }
+    }
+
     loadData();
 
 }])
