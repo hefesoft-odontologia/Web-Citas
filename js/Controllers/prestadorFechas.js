@@ -17,10 +17,11 @@ angular.module('starter')
         var usuario = users.getCurrentUser();
         var item = varsFactoryService.prestadorSeleccionado();
         var platformPush = pushFactory.getPlatform();
+
         var fecha = $scope.meses.seleccionado.mes + " " +$scope.dias.seleccionado.dia + " " +
-                    $scope.horas.seleccionado.hora + " " + $scope.periodos.seleccionado.periodo;
+                    $scope.horas.seleccionado.hora + " " + $scope.periodos.seleccionado.periodo + " minutos";
       
-        /*
+        
         var data = {
             prestador : item.username,
             platform : platformPush,
@@ -28,17 +29,13 @@ angular.module('starter')
             RowKey: usuario.username,
             solicitadaPor : usuario.username,
             nombreTabla: 'TmCitas',
-            fecha : $scope.datosCita.fecha
+            fecha : fecha
         }
-        */
-
-        //var textoCita = 'Nueva cita solicitada';
-        //pushFactory.enviarMensajePlatform(item.email,textoCita, item.platform);
-        //emailFactory.enviarEmail(usuario.email, item.email, 'Cita solicitada', textoCita, textoCita);
-        //dataTableStorageFactory.saveStorage(data);
+        
+        dataTableStorageFactory.saveStorage(data).then(citaSolicitada, error);
 
          if(isIE){
-            window.external.notify("Push," + usuario.email + "," + ",Cita solicitada por: " + item.RowKey);
+            window.external.notify("Push," + usuario.email + "," + ",Cita solicitada por: " + item.email);
          }
     }
 
@@ -63,15 +60,22 @@ angular.module('starter')
         else if(data[0].tipo === "periodos"){
             $scope.periodos = data[0].data;
         }
-    }
+    }    
 
     function error(data){
         console.log(data);
     }
 
+    function citaSolicitada(data){
+         //var textoCita = 'Nueva cita solicitada';
+        //pushFactory.enviarMensajePlatform(item.email,textoCita, item.platform);
+        //emailFactory.enviarEmail(usuario.email, item.email, 'Cita solicitada', textoCita, textoCita);
+        $state.go('app.citasolicitada');
+    }
+
 
     //Primero se valida que se hayan cargado los combos
-    //luego que algo se haya seleccionado
+    //luego que algo se haya seleccionado algo en cada combo
     $scope.validar = function(){
         if($scope.hasOwnProperty('meses') && $scope.hasOwnProperty('dias') && $scope.hasOwnProperty('horas') && $scope.hasOwnProperty('periodos') ){
             if($scope.meses.hasOwnProperty('seleccionado') && $scope.dias.hasOwnProperty('seleccionado') && $scope.horas.hasOwnProperty('seleccionado') && $scope.periodos.hasOwnProperty('seleccionado')){

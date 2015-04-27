@@ -54,6 +54,15 @@ angular.module('starter', ['ionic', 'ngCordova'])
     }
   })  
 
+  .state('app.citasolicitada', {
+    url: "/citasolicitada",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/views/mensajes/citaSolicitada.html"        
+      }
+    }
+  })  
+
 .state('sigin', {
   url: '/sigin',
   templateUrl: 'templates/views/Sign/SignIn.html'  
