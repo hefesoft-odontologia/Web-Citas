@@ -33,8 +33,8 @@ angular.module('starter')
         }
         
         dataTableStorageFactory.saveStorage(data).then(citaSolicitada, error);
-        UniversalApps.push(usuario.email, "Cita solicitada por: " + item.email, 1);
-        UniversalApps.toast("Cita solicitada en espera de respuesta.", 6)
+        UniversalApps.push(usuario.email, "Cita solicitada por: " + item.email, 0.1);
+        UniversalApps.toast("Cita solicitada en espera de respuesta.", 8)
 
     }
 
