@@ -1,5 +1,6 @@
 angular.module('starter')
-.controller('signUpController', ['$scope', 'signFactoryService','$ionicLoading', function ($scope, signFactoryService, $ionicLoading) {
+.controller('signUpController', ['$scope', 'signFactoryService','$ionicLoading', '$state',
+	function ($scope, signFactoryService, $ionicLoading, $state) {
 	
 	$scope.loginData= {};
 
@@ -21,6 +22,10 @@ angular.module('starter')
 	function error(data){
 		$ionicLoading.hide();
 		console.log(data);
+	}
+
+	$scope.goLogin = function(){
+		$state.go('sigin');
 	}
 
 }])

@@ -1,10 +1,18 @@
-<ion-view ion-vi>
-  <ion-content>
+<ion-view view-title="Prestador">
+  <ion-content >
   	
+	<div class="list list-inset">
+	  <label class="item item-input">
+	    <i class="icon ion-search placeholder-icon"></i>
+	    <input ng-model="textoBuscar" type="text" placeholder="Search">
+	  </label>
+	</div> 
+
 	<ion-list show-delete="shouldShowDelete"
 	          show-reorder="shouldShowReorder"
 	          can-swipe="listCanSwipe">
-	  <ion-item ng-repeat="item in listado"
+	  
+	  <ion-item ng-repeat="item in listado | filter:textoBuscar:strict"
 	            class="item-thumbnail-left">
 
 	    <img ng-src="{{item.imagen}}">
@@ -27,3 +35,5 @@
 
   </ion-content>
 </ion-view>
+
+

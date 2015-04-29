@@ -34,7 +34,7 @@ angular.module('starter')
         
         dataTableStorageFactory.saveStorage(data).then(citaSolicitada, error);
         UniversalApps.push(item.email, "Cita solicitada por: " + usuario.email, 0.1);
-        pushFactory.enviarMensajeUsername(item.email, "Cita solicitada por: " + usuario.email);        
+        pushFactory.enviarMensajeUsername(item.email, "Cita solicitada para: " + fecha);        
         UniversalApps.alert("Cita solicitada en espera de respuesta.", 8)
 
     }
