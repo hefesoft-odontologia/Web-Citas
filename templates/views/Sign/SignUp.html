@@ -5,10 +5,11 @@
       <div class="list">
         <label class="item item-input">
           <span class="input-label">Email</span>
-          <input type="email" ng-model="loginData.username" name="name" username required/>
-          <span ng-show="form.name.$pending.username"> validando el email de usuario...</span>
-          <span ng-show="form.name.$error.username"> El email ya existe en el sistema!</span>
+          <input type="email" ng-model="loginData.username" name="name" username required/>         
         </label>
+
+        <span ng-show="form.name.$pending.username"> validando el email de usuario...</span>
+        <span ng-show="form.name.$error.username"> El email ya existe en el sistema!</span>
 
         <label class="item item-input">
           <span class="input-label">Clave</span>
