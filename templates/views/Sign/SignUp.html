@@ -8,8 +8,16 @@
           <input type="email" ng-model="loginData.username" name="name" username required/>         
         </label>
 
-        <span ng-show="form.name.$pending.username"> validando el email de usuario...</span>
-        <span ng-show="form.name.$error.username"> El email ya existe en el sistema!</span>
+        <button ng-show="form.name.$pending.username" class="button  button-full button-clear button-positive">
+            <span> validando el email de usuario...</span>  
+        </button>
+
+        <button ng-show="form.name.$error.username" class="button  button-full button-clear button-assertive">
+            <span> El email ya existe en el sistema!</span>
+        </button>
+
+        
+        
 
         <label class="item item-input">
           <span class="input-label">Clave</span>
