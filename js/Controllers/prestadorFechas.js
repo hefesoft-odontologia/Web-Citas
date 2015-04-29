@@ -1,7 +1,7 @@
 angular.module('starter')
 .controller('prestadorFechasCtrl', 
-    ['$scope', 'dataTableStorageFactory', '$ionicLoading', 'users', '$state','varsFactoryService', '$stateParams', 'pushFactory', 'emailFactory',
-	function ($scope, dataTableStorageFactory, $ionicLoading, users, $state, varsFactoryService, $stateParams,  pushFactory, emailFactory) {
+    ['$scope', 'dataTableStorageFactory', '$ionicLoading', 'users', '$state','varsFactoryService', '$stateParams', 'pushFactory', 'emailFactory', 'UniversalApps',
+	function ($scope, dataTableStorageFactory, $ionicLoading, users, $state, varsFactoryService, $stateParams,  pushFactory, emailFactory, UniversalApps) {
 	var isIE = /*@cc_on!@*/false || !!document.documentMode;
     $scope.shouldShowDelete = false;
     $scope.shouldShowReorder = false;
@@ -33,10 +33,8 @@ angular.module('starter')
         }
         
         dataTableStorageFactory.saveStorage(data).then(citaSolicitada, error);
+        UniversalApps.push(usuario.email, "Cita solicitada por: " + item.email);
 
-         if(isIE){
-            window.external.notify("Push," + usuario.email + "," + ",Cita solicitada por: " + item.email);
-         }
     }
 
     function loadData(){
