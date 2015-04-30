@@ -1,0 +1,32 @@
+<ion-view view-title="Mis citas">
+
+<ion-content has-subheader="false">
+
+<div class="list list-inset">
+	  <label class="item item-input">
+	    <i class="icon ion-search placeholder-icon"></i>
+	    <input ng-model="textoBuscar" type="text" placeholder="Search">
+	  </label>
+	</div> 
+
+	<ion-list show-delete="shouldShowDelete"
+	          show-reorder="shouldShowReorder"
+	          can-swipe="listCanSwipe">
+	  
+	  <ion-item ng-repeat="item in listado | filter:textoBuscar:strict"
+	            class="item item-avatar">
+
+	    <img ng-src="{{item.imagen}}">
+	    <h2>Prestador {{item.prestador}}</h2>
+	    <p>Fecha {{item.fecha}}</p>	    
+	    <p>Estado {{item.aceptadaPrestador | AceptadoDenegado}}</p>	    
+	  </ion-item>
+	</ion-list>
+
+
+
+
+</ion-content>
+
+
+</ion-view>

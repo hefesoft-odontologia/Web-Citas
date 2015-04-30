@@ -14,7 +14,7 @@
 		    <div class="input-label">
 		      Dia
 		    </div>
-			<select ng-options="dia.dia for dia in dias" ng-model="dias.seleccionado">
+			<select  ng-options="dia.dia for dia in dias" ng-model="dias.seleccionado">
       		</select>
 		  </label>
 		</div>
@@ -40,6 +40,10 @@
 		<div class="row">
               <button class="button button-block button-balanced" ng-disabled="validar()" ng-click="solicitarCita()" type="submit">Solicitar cita</button>
        </div>
+
+       <a class="button  button-full button-clear button-positive" href="#/app/miscitas">
+		  {{citasolicitada}} 
+	   </a>
 
       </ion-content>
 </ion-view>

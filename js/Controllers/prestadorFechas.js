@@ -1,7 +1,7 @@
 angular.module('starter')
 .controller('prestadorFechasCtrl', 
-    ['$scope', 'dataTableStorageFactory', '$ionicLoading', 'users', '$state','varsFactoryService', '$stateParams', 'pushFactory', 'emailFactory', 'UniversalApps',
-	function ($scope, dataTableStorageFactory, $ionicLoading, users, $state, varsFactoryService, $stateParams,  pushFactory, emailFactory, UniversalApps) {
+    ['$scope', 'dataTableStorageFactory', '$ionicLoading', 'users', '$state','varsFactoryService', '$stateParams', 'pushFactory', 'emailFactory', 'UniversalApps', 'validarNavegacionService', '$q', '$timeout',
+	function ($scope, dataTableStorageFactory, $ionicLoading, users, $state, varsFactoryService, $stateParams,  pushFactory, emailFactory, UniversalApps, validarNavegacionService, $q, $timeout) {
 	var isIE = /*@cc_on!@*/false || !!document.documentMode;
     $scope.shouldShowDelete = false;
     $scope.shouldShowReorder = false;
@@ -11,7 +11,11 @@ angular.module('starter')
     $scope.listado =[];
     $scope.datosCita = {}; 
 
+    var valido = validarNavegacionService.validarPacienteSeleccionado();
    
+    if(valido){
+        loadData();       
+    }
   
     $scope.solicitarCita = function(){
         var usuario = users.getCurrentUser();
@@ -29,38 +33,63 @@ angular.module('starter')
             RowKey: usuario.username,
             solicitadaPor : usuario.username,
             nombreTabla: 'TmCitas',
-            fecha : fecha
+            fecha : fecha,
+            solicitada :true,
+            aceptadaPrestador : 0,
+            aceptadaUsuario : 0,
+            imagen : item.imagen,
+            respuestaPrestador : '',
+            mes: JSON.stringify($scope.meses.seleccionado),
+            dia : JSON.stringify($scope.dias.seleccionado),
+            hora: JSON.stringify($scope.horas.seleccionado),
+            periodo : JSON.stringify($scope.periodos.seleccionado)
         }
         
-        dataTableStorageFactory.saveStorage(data).then(citaSolicitada, error);
-        UniversalApps.push(item.email, "Cita solicitada por: " + usuario.email, 0.1);
+        dataTableStorageFactory.saveStorage(data).then(citaSolicitada, error);        
         pushFactory.enviarMensajeUsername(item.email, "Cita solicitada para: " + fecha);        
         UniversalApps.alert("Cita solicitada en espera de respuesta.", 8)
 
     }
 
     function loadData(){
-        dataTableStorageFactory.getJsonData("dias.json").success(success).error(error);
-        dataTableStorageFactory.getJsonData("horas.json").success(success).error(error);
-        dataTableStorageFactory.getJsonData("meses.json").success(success).error(error);
-        dataTableStorageFactory.getJsonData("periodos.json").success(success).error(error);
+        var usuario = users.getCurrentUser();
+        var item = varsFactoryService.prestadorSeleccionado();
+
+        var promise1 = dataTableStorageFactory.getJsonData("dias.json");
+        var promise2 = dataTableStorageFactory.getJsonData("horas.json");
+        var promise3 = dataTableStorageFactory.getJsonData("meses.json");
+        var promise4 = dataTableStorageFactory.getJsonData("periodos.json");
+        var promise5 =dataTableStorageFactory.getTableByPartitionAndRowKey('TmCitas', item.username, usuario.username)
+
+        $q.all([promise1, promise2, promise3, promise4, promise5]).then(function(data){
+            var dias = data[0].data[0].data;
+            var horas = data[1].data[0].data;
+            var meses = data[2].data[0].data;
+            var periodos = data[3].data[0].data;
+            var citaSolicitada = data[4].data;
+
+            $scope.dias = dias;
+            $scope.meses = meses;
+            $scope.horas = horas;
+            $scope.periodos = periodos;            
+
+            if(citaSolicitada != null){
+                /*
+                    $scope.dias.seleccionado = JSON.parse(citaSolicitada.dia);
+                    $scope.meses.seleccionado = JSON.parse(citaSolicitada.mes);
+                    $scope.horas.seleccionado = JSON.parse(citaSolicitada.hora);
+                    $scope.periodos.seleccionado = JSON.parse(citaSolicitada.periodo);
+                */
+
+                $scope.citasolicitada = "Ya tienes una cita solicitada para el : " + citaSolicitada.fecha 
+                + ' por favor espere la respuesta de la misma en el modulo mis citas'; 
+            }
+            
+        });
+
     }
 
-    function success(data){
-
-        if(data[0].tipo === "dias"){
-            $scope.dias = data[0].data;
-        }
-        else if(data[0].tipo === "meses"){
-            $scope.meses = data[0].data;
-        }
-        else if(data[0].tipo === "horas"){
-            $scope.horas = data[0].data;
-        }
-        else if(data[0].tipo === "periodos"){
-            $scope.periodos = data[0].data;
-        }
-    }    
+        
 
     function error(data){
         console.log(data);
@@ -71,7 +100,7 @@ angular.module('starter')
         //pushFactory.enviarMensajePlatform(item.email,textoCita, item.platform);
         //emailFactory.enviarEmail(usuario.email, item.email, 'Cita solicitada', textoCita, textoCita);
         $state.go('app.citasolicitada');        
-    }
+    }  
 
 
     //Primero se valida que se hayan cargado los combos
@@ -89,7 +118,4 @@ angular.module('starter')
             return true;
         }
     }
-
-    loadData();
-
 }])
