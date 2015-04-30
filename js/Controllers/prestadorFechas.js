@@ -44,7 +44,9 @@ angular.module('starter')
             hora: JSON.stringify($scope.horas.seleccionado),
             periodo : JSON.stringify($scope.periodos.seleccionado),
             prestadorEmail : item.email,
-            prestadorObject : JSON.stringify(item)
+            prestadorObject : JSON.stringify(item),
+            usuario : JSON.stringify(usuario),
+            usuarioEmail : usuario.email
         }
         
         dataTableStorageFactory.saveStorage(data).then(citaSolicitada, error);        
