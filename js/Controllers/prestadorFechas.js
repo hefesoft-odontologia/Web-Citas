@@ -5,7 +5,7 @@ angular.module('starter')
 	var isIE = /*@cc_on!@*/false || !!document.documentMode;
     $scope.shouldShowDelete = false;
     $scope.shouldShowReorder = false;
-    $scope.listCanSwipe = true   
+    $scope.listCanSwipe = true;   
 
     var prestador = $stateParams.prestadorId;
     $scope.listado =[];
@@ -42,7 +42,9 @@ angular.module('starter')
             mes: JSON.stringify($scope.meses.seleccionado),
             dia : JSON.stringify($scope.dias.seleccionado),
             hora: JSON.stringify($scope.horas.seleccionado),
-            periodo : JSON.stringify($scope.periodos.seleccionado)
+            periodo : JSON.stringify($scope.periodos.seleccionado),
+            prestadorEmail : item.email,
+            prestadorObject : JSON.stringify(item)
         }
         
         dataTableStorageFactory.saveStorage(data).then(citaSolicitada, error);        

@@ -19,7 +19,14 @@
 	    <img ng-src="{{item.imagen}}">
 	    <h2>Prestador {{item.prestador}}</h2>
 	    <p>Fecha {{item.fecha}}</p>	    
-	    <p>Estado {{item.aceptadaPrestador | AceptadoDenegado}}</p>	    
+	    <p>Estado {{item.aceptadaPrestador | AceptadoDenegado}}</p>	
+
+		<ion-option-button class="button-assertive"
+	                       ng-click="cancelar(item)">
+	      Cancelar cita
+	    </ion-option-button>
+
+
 	  </ion-item>
 	</ion-list>
 

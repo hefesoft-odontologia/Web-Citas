@@ -65,6 +65,7 @@ angular.module('starter', ['ionic', 'ngCordova'])
 
   .state('app.miscitas', {
     url: "/miscitas",
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: "templates/views/misCitas.html",
