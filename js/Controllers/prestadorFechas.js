@@ -1,7 +1,7 @@
 angular.module('starter')
 .controller('prestadorFechasCtrl', 
-    ['$scope', 'dataTableStorageFactory', '$ionicLoading', 'users', '$state','varsFactoryService', '$stateParams', 'pushFactory', 'emailFactory', 'UniversalApps', 'validarNavegacionService', '$q', '$timeout',
-	function ($scope, dataTableStorageFactory, $ionicLoading, users, $state, varsFactoryService, $stateParams,  pushFactory, emailFactory, UniversalApps, validarNavegacionService, $q, $timeout) {
+    ['$scope', 'dataTableStorageFactory', '$ionicLoading', 'users', '$state','varsFactoryService', '$stateParams', 'pushFactory', 'emailFactory', 'UniversalApps', 'validarNavegacionService', '$q', '$timeout', 'messageService', 'conexionSignalR',
+	function ($scope, dataTableStorageFactory, $ionicLoading, users, $state, varsFactoryService, $stateParams,  pushFactory, emailFactory, UniversalApps, validarNavegacionService, $q, $timeout, messageService, conexionSignalR) {
 	var isIE = /*@cc_on!@*/false || !!document.documentMode;
     $scope.shouldShowDelete = false;
     $scope.shouldShowReorder = false;
@@ -48,8 +48,12 @@ angular.module('starter')
             usuarioEmail : usuario.email
         }
         
+        var mensaje = "Deseo una cita para  " + fecha;
         dataTableStorageFactory.saveStorage(data).then(citaSolicitada, error);        
-        pushFactory.enviarMensajeUsername(item.email, "Cita solicitada para: " + fecha);        
+        //pushFactory.enviarMensajeUsername(item.email, "Cita solicitada para: " + fecha);
+        
+        //para, de, tipo, mensaje, accion
+        conexionSignalR.procesarMensaje(item.email, usuario.email, 'mensaje', mensaje);
         UniversalApps.alert("Cita solicitada en espera de respuesta.", 8)
 
     }
@@ -98,11 +102,9 @@ angular.module('starter')
         console.log(data);
     }
 
-    function citaSolicitada(data){
-         //var textoCita = 'Nueva cita solicitada';
-        //pushFactory.enviarMensajePlatform(item.email,textoCita, item.platform);
-        //emailFactory.enviarEmail(usuario.email, item.email, 'Cita solicitada', textoCita, textoCita);
-        $state.go('app.citasolicitada');        
+    function citaSolicitada(data){       
+       messageService.showMessage('Cita solicitada por favor espere a que esta sea aprobada por el prestador');       
+       $state.go('app.citasolicitada');        
     }  
 
 

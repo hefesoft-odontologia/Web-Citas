@@ -1,6 +1,6 @@
 angular.module('starter')
-.controller('misCitasCtrl', ['$scope', 'dataTableStorageFactory', '$q', 'validarNavegacionService', 'users', '$ionicLoading', 'pushFactory',
-	function ($scope, dataTableStorageFactory, $q, validarNavegacionService, users, $ionicLoading, pushFactory) {
+.controller('misCitasCtrl', ['$scope', 'dataTableStorageFactory', '$q', 'validarNavegacionService', 'users', '$ionicLoading', 'pushFactory', 'conexionSignalR', 'messageService',
+	function ($scope, dataTableStorageFactory, $q, validarNavegacionService, users, $ionicLoading, pushFactory, conexionSignalR, messageService) {
 	
     $scope.shouldShowDelete = false;
     $scope.shouldShowReorder = false;
@@ -27,9 +27,42 @@ angular.module('starter')
     }
 
     $scope.cancelar = function(item){
-        item.aceptadaUsuario = 2;
+        var usuario = users.getCurrentUser();
+        item.aceptadaUsuario = "3";
         dataTableStorageFactory.saveStorage(item).then(success, error);        
-        pushFactory.enviarMensajeUsername(item.prestadorEmail, "Ha cancelado la cita del dia: " +  item.fecha); 
+        //pushFactory.enviarMensajeUsername(item.prestadorEmail, "Ha cancelado la cita del dia: " +  item.fecha); 
+
+        //para, de, tipo, mensaje, accion
+        var mensaje = [item.RowKey, "cita cancelada"];
+        //Debe enviarse con un separador diferente a comas
+        mensaje = mensaje.join(";");
+        conexionSignalR.procesarMensaje(item.prestadorEmail, usuario.email, "ejecutar accion", mensaje, "cita cancelada");
+        conexionSignalR.procesarMensaje(item.prestadorEmail, usuario.email, "mensaje", "Cita cancelada  " +  item.fecha);
+    }
+
+    $scope.$on("cambio cita prestador", function(event, args) {
+       try{
+           var array = args.mensaje.split(';');
+           var RowKey = array[0];
+           var cambio = array[1];
+
+           var cita = _.find($scope.listado, { 'RowKey': RowKey })
+
+           if(cambio == "cita cancelada"){              
+              cambioEstado(cita, "2");              
+           }
+           else if(cambio == "cita aprobada"){
+              cambioEstado(cita, "1");              
+           }                  
+       }
+       catch(ex){           
+       }       
+    })
+
+    function cambioEstado(cita,  estado){
+        $scope.$apply(function () {
+             cita.aceptadaPrestador = estado;
+        });
     }
 
     function success(data){
