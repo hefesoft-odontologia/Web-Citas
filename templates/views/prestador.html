@@ -13,7 +13,7 @@
 	          can-swipe="listCanSwipe">
 	  
 	  <ion-item ng-repeat="item in listado | filter:textoBuscar:strict"
-	            class="item item-avatar">
+	            class="item item-avatar" list-click="-163px">
 
 	    <img ng-src="{{item.imagen}}">
 	    <h2>{{item.email}}</h2>

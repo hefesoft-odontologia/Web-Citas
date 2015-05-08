@@ -1,6 +1,6 @@
 angular.module('starter')
-.controller('signInController', ['$scope','signFactoryService','$ionicLoading','$state', 'users', 'pushFactory', 'UniversalApps',
-	function ($scope, signFactoryService, $ionicLoading, $state, users, pushFactory, UniversalApps) {
+.controller('signInController', ['$scope','signFactoryService','$ionicLoading','$state', 'users', 'pushFactory', 'UniversalApps','signalrService', '$timeout', 'conexionSignalR', 'platformService', 'inicializarServicios',
+	function ($scope, signFactoryService, $ionicLoading, $state, users, pushFactory, UniversalApps, signalrService, $timeout, conexionSignalR, platformService, inicializarServicios) {
 	var isIE = /*@cc_on!@*/false || !!document.documentMode;
 	$scope.loginData= {};
 	var usuario = users.getCurrentUser();
@@ -17,16 +17,16 @@ angular.module('starter')
 
 	$scope.doSign = function(){
 		$ionicLoading.show();
-		signFactoryService.sign($scope.loginData).then(success, error);
+		signFactoryService.sign($scope.loginData).then(success, error);		
 	}
 
 	function success(data){
 		UniversalApps.login($scope.loginData.username, $scope.loginData.password);
 		console.log(data);
 		$ionicLoading.hide();
+		inicializarServicios.inicializar($scope.loginData.username);
 		$state.go("app.citas");
-		pushFactory.registerAndroid();		
-	}
+	}	
 
 	function error(data){
 		console.log(data);
