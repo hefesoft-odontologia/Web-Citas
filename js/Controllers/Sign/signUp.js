@@ -15,11 +15,21 @@ angular.module('starter')
 	}
 
 	function successLogin(data){
+		try
+		{
 		console.log(data);
 		$ionicLoading.hide();
 
 		inicializarServicios.inicializar($scope.loginData.username);
 		$state.go("app.citas");
+		}
+		catch(ex){
+			$ionicLoading.hide();
+			$state.go("app.citas");
+
+			//Molesta el push en wp8
+			//alert(ex);
+		}
 	}
 
 	function error(data){
