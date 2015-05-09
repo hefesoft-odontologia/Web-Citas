@@ -23,13 +23,14 @@ angular.module('starter')
 
 	function success(data){
 		try{
-		UniversalApps.login($scope.loginData.username, $scope.loginData.password);
-		console.log(data);			
-		inicializarServicios.inicializar($scope.loginData.username);
-		$ionicLoading.hide();
-		$state.go("app.citas");
+			UniversalApps.login($scope.loginData.username, $scope.loginData.password);
+			console.log(data);			
+			inicializarServicios.inicializar($scope.loginData.username);
+			$ionicLoading.hide();
+			$state.go("app.citas");
 		}
 		catch(ex){
+			$ionicLoading.hide();
 			$state.go("app.citas");
 			alert(ex);
 		}
