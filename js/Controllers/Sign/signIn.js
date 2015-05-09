@@ -22,14 +22,17 @@ angular.module('starter')
 	}
 
 	function success(data){
-		if(!isIE){
-			UniversalApps.login($scope.loginData.username, $scope.loginData.password);
-			console.log(data);			
-			inicializarServicios.inicializar($scope.loginData.username);
-		}
-
+		try{
+		UniversalApps.login($scope.loginData.username, $scope.loginData.password);
+		console.log(data);			
+		inicializarServicios.inicializar($scope.loginData.username);
 		$ionicLoading.hide();
 		$state.go("app.citas");
+		}
+		catch(ex){
+			$state.go("app.citas");
+			alert(ex);
+		}
 	}	
 
 	function error(data){
