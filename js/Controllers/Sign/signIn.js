@@ -22,16 +22,23 @@ angular.module('starter')
 	}
 
 	function success(data){
-		UniversalApps.login($scope.loginData.username, $scope.loginData.password);
-		console.log(data);
+		if(!isIE){
+			UniversalApps.login($scope.loginData.username, $scope.loginData.password);
+			console.log(data);			
+			inicializarServicios.inicializar($scope.loginData.username);
+		}
+
 		$ionicLoading.hide();
-		inicializarServicios.inicializar($scope.loginData.username);
 		$state.go("app.citas");
 	}	
 
 	function error(data){
 		console.log(data);
 		$ionicLoading.hide();
+
+		if(isIE){
+			alert(data);
+		}
 	}
 
 }])
