@@ -32,7 +32,9 @@ angular.module('starter')
 		catch(ex){
 			$ionicLoading.hide();
 			$state.go("app.citas");
-			alert(ex);
+
+			//Molesta el push en wp8
+			//alert(ex);
 		}
 	}	
 
